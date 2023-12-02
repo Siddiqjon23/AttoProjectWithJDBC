@@ -29,4 +29,13 @@ public class CardService {
 
         return cardRepository.changeStatus(cardNumber);
     }
+
+    public Boolean deleteCard(String cardNumber, String expiredDate) {
+       return cardRepository.deleteCard(cardNumber,expiredDate);
+    }
+
+    public Boolean addToBalance(String cardNumber, Double money) {
+
+        return cardRepository.addToBalance(cardNumber,money);
+    }
 }

@@ -23,7 +23,11 @@ public class LoginAndRegistrationService {
 
     public Boolean login(String phone, String password) {
         var check = loginAndRegistrationRepository.getUserByPhoneAndPassword(phone,password);
-        return check != null;
-
+        if(check == null){
+            return null;
+        } else if (check.getRole().equals(UserRole.Admin)) { // return true when role is admin
+            return true;
+        }
+        return false;
     }
 }

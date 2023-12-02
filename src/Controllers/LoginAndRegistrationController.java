@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class LoginAndRegistrationController {
     UserController userController = new UserController();
+    AdminController adminController = new AdminController();
     public void start(){
         boolean t = true;
         while (t){
@@ -64,10 +65,13 @@ public class LoginAndRegistrationController {
 
         LoginAndRegistrationService loginAndRegistrationService = new LoginAndRegistrationService();
         var isExist = loginAndRegistrationService.login(phone,password);
-        if(!isExist){
+        //
+        if(isExist == null){
             System.out.println("user is not found ");
-        }else{
+        }else if(!isExist){
           userController.start();
+        }else{
+            adminController.start();
         }
 
 

@@ -71,4 +71,33 @@ public class CardRepository {
         }
         return true;
     }
+
+    public Boolean deleteCard(String cardNumber, String expiredDate) {
+        Connection connection = DbUtill.getConnection();
+        String sql = "delete  from card  where cardNumber = ? and expiredDate = ?";
+        try {
+           PreparedStatement preparedStatement =  connection.prepareStatement(sql);
+           preparedStatement.setString(1,cardNumber);
+           preparedStatement.setString(2,expiredDate);
+           preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    public Boolean addToBalance(String cardNumber, Double money) {
+
+        Connection connection = DbUtill.getConnection();
+        String sql = "update card set balance = ? where cardNumber = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,money);
+            preparedStatement.setString(2,cardNumber);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }

@@ -24,7 +24,43 @@ public class UserController {
                 case 3:
                     changeStatus();
                     break;
+                case 4:
+                    deleteCard();
+                    break;
+                case 5:
+                    reFill();
+                    break;
+
             }
+        }
+    }
+
+    private void reFill() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("enter card number :");
+        String cardNumber = scanner.nextLine();
+
+        System.out.println("enter money  :");
+        Double money = scanner.nextDouble();
+
+       var isAddedToBalance =  cardService.addToBalance(cardNumber,money);
+       if(isAddedToBalance){
+           System.out.println("added successfully");
+       }
+    }
+
+    private void deleteCard() {
+    Scanner scanner = new Scanner(System.in);
+        System.out.println("enter card number : ");
+        String cardNumber = scanner.nextLine();
+
+        System.out.println("enter expired date :");
+        String expiredDate = scanner.nextLine();
+
+        var isDeleted = cardService.deleteCard(cardNumber,expiredDate);
+        if(isDeleted){
+            System.out.println("deleted successfully");
         }
     }
 
@@ -77,6 +113,7 @@ public class UserController {
     }
 
     public void printMenu(){
+        System.out.println("***User***");
         System.out.println("1=>Add card");
         System.out.println("2=>Car lists");
         System.out.println("3=>Card change status");

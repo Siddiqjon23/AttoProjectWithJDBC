@@ -2,6 +2,7 @@ package Repositories;
 
 import DTOs.User;
 import Db.DbUtill;
+import Enums.UserRole;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -51,7 +52,7 @@ public class LoginAndRegistrationRepository {
 
         User user = new User();
         Connection connection = DbUtill.getConnection();
-        String sql = "select phone,password from user_1 where phone = ? and password = ?";
+        String sql = "select phone,password,role from user_1 where phone = ? and password = ?";
         try {
            PreparedStatement preparedStatement =  connection.prepareStatement(sql);
            preparedStatement.setString(1,phone);
@@ -60,6 +61,8 @@ public class LoginAndRegistrationRepository {
            if (resultSet.next()){
             user.setPhone(resultSet.getString("phone"));
             user.setPassword(resultSet.getString("password"));
+            user.setRole(UserRole.valueOf(resultSet.getString("role")));
+
            }else {
                return null;
            }
